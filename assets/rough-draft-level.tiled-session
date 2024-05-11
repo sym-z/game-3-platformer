@@ -22,6 +22,7 @@
     "openFiles": [
     ],
     "project": "rough-draft-level.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
     ],
     "tileset.embedInMap": true,
