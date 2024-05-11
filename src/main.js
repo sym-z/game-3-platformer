@@ -8,10 +8,23 @@ let config = {
     render: {
         pixelArt: true  // prevent pixel art from getting blurred when scaled
     },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true,
+            gravity: {
+                x: 0,
+                y: 0
+            }
+        }
+    },
     width: 800,
-    height: 600,
-    backgroundColor: '#008100',
-    scene: [Global,Start,Level,CrabStart,Crab,LobsterStart,Lobster,End,Win]
+    height: 640,
+    scene: [Load,LevelOne]
 }
+
+var cursors;
+const SCALE = 2.0;
+var my = {sprite: {}, text: {}};
 
 const game = new Phaser.Game(config);

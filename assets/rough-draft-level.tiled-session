@@ -11,8 +11,10 @@
             "scaleInDock": 1
         }
     },
+    "last.exportedFilePath": "D:/Github Repos/game-3-platformer/assets",
     "last.imagePath": "/home/sym-z/code/UCSC/spring24/cmpm120/game-3-platformer/assets/kenney_1-bit-platformer-pack/Tilemap",
     "map.height": 40,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
