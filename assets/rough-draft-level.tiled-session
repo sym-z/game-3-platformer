@@ -1,0 +1,30 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "/home/sym-z/code/UCSC/spring24/cmpm120/game-3-platformer/assets/kenney_1-bit-platformer-pack/Tilemap",
+    "map.height": 40,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 150,
+    "openFiles": [
+    ],
+    "project": "rough-draft-level.tiled-project",
+    "recentFiles": [
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
