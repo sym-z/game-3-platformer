@@ -26,5 +26,9 @@ class LevelOne extends Phaser.Scene
         // Move the camera down
         this.cameras.main.scrollY += 400;
 
+        this.player = this.physics.add.sprite(50,600, 'idle1');
+        this.player.setScale(2.0);
+
+        this.player.anims.play('idle');
     }
 }
