@@ -34,7 +34,7 @@ class LevelOne extends Phaser.Scene
             }
         );
         // Move the camera down
-        this.cameras.main.scrollY += 400;
+        //this.cameras.main.scrollY += 400;
 
         this.player = this.physics.add.sprite(120, 850, 'idle1');
         this.player.setScale(2.0);
@@ -43,11 +43,15 @@ class LevelOne extends Phaser.Scene
         this.physics.add.collider(this.player, this.ground);
 
         this.player.anims.play('idle');
+        
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
     }
     update()
     {
+        this.cameras.main.scrollY = this.player.y - 400;
+        this.cameras.main.scrollX = this.player.x - 400;
+
         if(Math.abs(this.player.body.velocity.x) > this.MAX_SPEED)
             {
                 if(this.player.body.velocity.x > 0)
@@ -76,13 +80,13 @@ class LevelOne extends Phaser.Scene
             // TODO: set acceleration to 0 and have DRAG take over
             this.player.body.setAccelerationX(0); 
             this.player.body.setDragX(this.DRAG); 
-            this.player.anims.play('idle');
+            this.player.anims.play('idle', true);
         }
 
         // player jump
         // note that we need body.blocked rather than body.touching b/c the former applies to tilemap tiles and the latter to the "ground"
         if(!this.player.body.blocked.down) {
-            this.player.anims.play('jump');
+            this.player.anims.play('jump', true);
         }
         if(this.player.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             this.player.body.setVelocityY(this.JUMP_VELOCITY);
