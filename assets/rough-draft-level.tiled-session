@@ -3,12 +3,25 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "rough-draft.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 4
+        },
+        "rough-draft.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 159.66666666666669,
+                "y": 403.99999999999994
+            }
+        },
+        "rough-draft.tmx#1bit-tileset": {
+            "scaleInDock": 2
         }
     },
     "last.exportedFilePath": "D:/Github Repos/game-3-platformer/assets",
@@ -20,10 +33,12 @@
     "map.tileWidth": 16,
     "map.width": 150,
     "openFiles": [
+        "rough-draft.tmx"
     ],
     "project": "rough-draft-level.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "rough-draft.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.tileSize": {
