@@ -24,7 +24,7 @@ class Load extends Phaser.Scene {
     {
         var idle_frames = ['idle1', 'idle2'];
         var walk_frames = ['walk1', 'walk2'];
-        var jump_frames = ['jump1', 'jump2'];
+        var jump_frames = ['jump2', 'jump1'];
 
         this.anims.create(
             {

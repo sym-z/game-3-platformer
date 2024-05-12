@@ -13,11 +13,11 @@
             "scaleInEditor": 4
         },
         "rough-draft.tmx": {
-            "scale": 1.5,
-            "selectedLayer": 2,
+            "scale": 4,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 159.66666666666669,
-                "y": 403.99999999999994
+                "x": 2243.125,
+                "y": 504.75
             }
         },
         "rough-draft.tmx#1bit-tileset": {

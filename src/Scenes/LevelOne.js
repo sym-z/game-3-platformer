@@ -20,12 +20,10 @@ class LevelOne extends Phaser.Scene
         this.tileset = this.map.addTilesetImage("1bit-tileset", "tilemap_tiles")
         this.background = this.map.createLayer("Background", this.tileset, 0, 0);
         this.ground = this.map.createLayer("Ground", this.tileset, 0, 0);
-        this.player = this.map.createLayer("Player", this.tileset, 0, 0);
         this.items = this.map.createLayer("Items", this.tileset, 0, 0);
 
         this.background.setScale(2.0);
         this.ground.setScale(2.0);
-        this.player.setScale(2.0);
         this.items.setScale(2.0);
 
         this.ground.setCollisionByProperty(
@@ -33,6 +31,41 @@ class LevelOne extends Phaser.Scene
                 collides: true
             }
         );
+        this.background.setCollisionByProperty(
+            {
+                hurts: true
+            }
+        );
+        this.items.setCollisionByProperty(
+            {
+                pickup: true
+            }
+        );
+        this.items.forEachTile((tile) => {
+            tile.collisionCallback = ()=>{
+                if (tile.properties.key)
+                    {
+                        this.key_pickup(tile)
+                    }
+                else
+                {
+                    this.coin_pickup(tile)
+
+                }
+            }
+        })
+        this.background.forEachTile((tile) => {
+            tile.collisionCallback = ()=>{
+                if (tile.properties.hurts)
+                    {
+                        this.hurt();
+                    }
+                else
+                {
+
+                }
+            }
+        })
         // Move the camera down
         //this.cameras.main.scrollY += 400;
 
@@ -41,6 +74,8 @@ class LevelOne extends Phaser.Scene
         //this.player.setCollideWorldBounds(true);
 
         this.physics.add.collider(this.player, this.ground);
+        this.physics.add.collider(this.player, this.items);
+        this.physics.add.collider(this.player, this.background);
 
         this.player.anims.play('idle');
         
@@ -98,5 +133,23 @@ class LevelOne extends Phaser.Scene
 
 
 
+    }
+    coin_pickup(tile)
+    {
+        tile.setCollision(false,false,false,false,true);
+        tile.setVisible(false)
+        console.log("coin pickup")
+    }
+    key_pickup(tile)
+    {
+        tile.setCollision(false,false,false,false,true);
+        tile.setVisible(false)
+        console.log("key pickup")
+    }
+    hurt()
+    {
+        //game.time.events.add(Phaser.Timer.SECOND*5,this.scene.start("LevelOne") , this);
+        //var timer = this.time.delayedCall(50000000000000, this.scene.start("LevelOne"),null, this);  // delay in ms
+        this.scene.start("LevelOne")
     }
 }
