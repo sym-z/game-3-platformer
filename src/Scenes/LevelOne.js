@@ -41,6 +41,8 @@ class LevelOne extends Phaser.Scene
                 pickup: true
             }
         );
+
+        // Pickup Coin and Key callbacks
         this.items.forEachTile((tile) => {
             tile.collisionCallback = ()=>{
                 if (tile.properties.key)
@@ -54,6 +56,7 @@ class LevelOne extends Phaser.Scene
                 }
             }
         })
+        // Hurt callback
         this.background.forEachTile((tile) => {
             tile.collisionCallback = ()=>{
                 if (tile.properties.hurts)
@@ -66,13 +69,15 @@ class LevelOne extends Phaser.Scene
                 }
             }
         })
-        // Move the camera down
-        //this.cameras.main.scrollY += 400;
 
-        this.player = this.physics.add.sprite(120, 850, 'idle1');
+        this.player = new Player(this, 120,850,'idle1'); 
         this.player.setScale(2.0);
+
+        // Can't do this bc scaling, unless a TA can help out.
         //this.player.setCollideWorldBounds(true);
 
+       
+       
         this.physics.add.collider(this.player, this.ground);
         this.physics.add.collider(this.player, this.items);
         this.physics.add.collider(this.player, this.background);
@@ -81,12 +86,17 @@ class LevelOne extends Phaser.Scene
         
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
+        this.cameras.main.scrollX = this.player.x - 400;
     }
     update()
     {
+        // Lookahead Camera, with lerping.
         this.cameras.main.scrollY = this.player.y - 400;
-        this.cameras.main.scrollX = this.player.x - 400;
+        this.target = this.player.x - 400 + this.player.facing * 100;
+        this.dx = this.target - this.cameras.main.scrollX;
+        this.cameras.main.scrollX += this.dx * 0.065;
 
+        // Clamp the player's movement speed.
         if(Math.abs(this.player.body.velocity.x) > this.MAX_SPEED)
             {
                 if(this.player.body.velocity.x > 0)
@@ -98,11 +108,13 @@ class LevelOne extends Phaser.Scene
                     this.player.body.velocity.x = -this.MAX_SPEED;
                 }
             }
+        // Move the player.
         if (cursors.left.isDown)
         {
             this.player.body.setAccelerationX(-this.ACCELERATION); 
             this.player.setFlip(true, false);
             this.player.anims.play('walk', true);
+            this.player.facing = -1;
 
         } else if(cursors.right.isDown) {
             // TODO: have the player accelerate to the right
@@ -110,6 +122,7 @@ class LevelOne extends Phaser.Scene
             this.player.body.setAccelerationX(this.ACCELERATION); 
             this.player.resetFlip();
             this.player.anims.play('walk', true);
+            this.player.facing = 1;
 
         } else {
             // TODO: set acceleration to 0 and have DRAG take over
@@ -129,11 +142,8 @@ class LevelOne extends Phaser.Scene
 
         }
 
-
-
-
-
     }
+    // Picking something up makes it invisible and turns its collision off.
     coin_pickup(tile)
     {
         tile.setCollision(false,false,false,false,true);
@@ -146,6 +156,7 @@ class LevelOne extends Phaser.Scene
         tile.setVisible(false)
         console.log("key pickup")
     }
+    // Instantly restarts level, I want to do a death anim but idk how yet.
     hurt()
     {
         //game.time.events.add(Phaser.Timer.SECOND*5,this.scene.start("LevelOne") , this);

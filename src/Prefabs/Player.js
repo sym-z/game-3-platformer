@@ -1,7 +1,15 @@
-class Player extends Phaser.Physics.Matter.Sprite
+class Player extends Phaser.Physics.Arcade.Sprite
 {
-    constructor()
+    constructor(scene, x, y, texture)
     {
-        super("Player");
+        super(scene,x,y,texture);
+        scene.add.existing(this)
+        scene.physics.add.existing(this)
+
+        // 1 for +x -1 for -x
+        this.facing = 1;
+    }
+    update()
+    {
     }
 }
