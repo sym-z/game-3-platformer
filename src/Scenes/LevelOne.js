@@ -14,6 +14,8 @@ class LevelOne extends Phaser.Scene
     }
     create()
     {
+        this.globals = this.scene.get("Globals");
+        console.log(this.globals.score)
         //this.map = this.add.tilemap("rough-draft", 16,16,159,39);
         //this.physics.world.setBounds(0,0,2560,640,true,true,true,true);
         this.map = this.make.tilemap({ key: 'rough-draft' });
@@ -148,7 +150,9 @@ class LevelOne extends Phaser.Scene
     {
         tile.setCollision(false,false,false,false,true);
         tile.setVisible(false)
-        console.log("coin pickup")
+        this.globals.score += 1;
+        console.log("coin pickup, score is: ", this.globals.score);
+
     }
     key_pickup(tile)
     {
@@ -161,6 +165,7 @@ class LevelOne extends Phaser.Scene
     {
         //game.time.events.add(Phaser.Timer.SECOND*5,this.scene.start("LevelOne") , this);
         //var timer = this.time.delayedCall(50000000000000, this.scene.start("LevelOne"),null, this);  // delay in ms
+        this.globals.score = 0;
         this.scene.start("LevelOne")
     }
 }
