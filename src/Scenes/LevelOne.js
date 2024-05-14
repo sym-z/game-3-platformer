@@ -89,9 +89,12 @@ class LevelOne extends Phaser.Scene
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.scrollX = this.player.x - 400;
+
+        this.step = this.sound.add('footfall');
     }
     update()
     {
+        this.player.isMoving = false;
         // Lookahead Camera, with lerping.
         this.cameras.main.scrollY = this.player.y - 400;
         this.target = this.player.x - 400 + this.player.facing * 100;
@@ -116,6 +119,7 @@ class LevelOne extends Phaser.Scene
             this.player.body.setAccelerationX(-this.ACCELERATION); 
             this.player.setFlip(true, false);
             this.player.anims.play('walk', true);
+            this.player.isMoving = true;
             this.player.facing = -1;
 
         } else if(cursors.right.isDown) {
@@ -124,6 +128,7 @@ class LevelOne extends Phaser.Scene
             this.player.body.setAccelerationX(this.ACCELERATION); 
             this.player.resetFlip();
             this.player.anims.play('walk', true);
+            this.player.isMoving = true;
             this.player.facing = 1;
 
         } else {
@@ -131,7 +136,17 @@ class LevelOne extends Phaser.Scene
             this.player.body.setAccelerationX(0); 
             this.player.body.setDragX(this.DRAG); 
             this.player.anims.play('idle', true);
+            this.player.isMoving = false;
         }
+
+        if(this.player.isMoving && !this.step.isPlaying && this.player.body.velocity.y == 0) 
+            {
+                this.step.play({loop: true});
+            }
+        else if (!this.player.isMoving && this.step.isPlaying || this.player.body.velocity.y)
+            {
+                this.step.stop();
+            }
 
         // player jump
         // note that we need body.blocked rather than body.touching b/c the former applies to tilemap tiles and the latter to the "ground"
@@ -140,6 +155,7 @@ class LevelOne extends Phaser.Scene
         }
         if(this.player.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             this.player.body.setVelocityY(this.JUMP_VELOCITY);
+            this.sound.play("jump");
             // TODO: set a Y velocity to have the player "jump" upwards (negative Y direction)
 
         }
@@ -151,6 +167,7 @@ class LevelOne extends Phaser.Scene
         tile.setCollision(false,false,false,false,true);
         tile.setVisible(false)
         this.globals.score += 1;
+        this.sound.play("coin");
         console.log("coin pickup, score is: ", this.globals.score);
 
     }
@@ -158,6 +175,7 @@ class LevelOne extends Phaser.Scene
     {
         tile.setCollision(false,false,false,false,true);
         tile.setVisible(false)
+        this.sound.play("key");
         console.log("key pickup")
     }
     // Instantly restarts level, I want to do a death anim but idk how yet.
@@ -166,6 +184,7 @@ class LevelOne extends Phaser.Scene
         //game.time.events.add(Phaser.Timer.SECOND*5,this.scene.start("LevelOne") , this);
         //var timer = this.time.delayedCall(50000000000000, this.scene.start("LevelOne"),null, this);  // delay in ms
         this.globals.score = 0;
+        this.sound.play("death");
         this.scene.start("LevelOne")
     }
 }

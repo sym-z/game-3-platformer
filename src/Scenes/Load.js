@@ -19,6 +19,12 @@ class Load extends Phaser.Scene {
         this.load.image("walk1", "player-anims/walk1.png");                         
         this.load.image("walk2", "player-anims/walk2.png");                         
 
+        this.load.audio("jump", "audio/pop.mp3")
+        this.load.audio("ui", "audio/choice.mp3")
+        this.load.audio("death", "audio/death.mp3")
+        this.load.audio("footfall", "audio/footfall.mp3")
+        this.load.audio("coin", "audio/jump.mp3")
+        this.load.audio("key", "audio/key.mp3")
     }
     create()
     {
