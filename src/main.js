@@ -20,7 +20,7 @@ let config = {
     },
     width: 800,
     height: 640,
-    scene: [Load,LevelOne]
+    scene: [Globals, Load,LevelOne]
 }
 
 var cursors;
