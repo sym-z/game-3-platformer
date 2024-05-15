@@ -14,6 +14,7 @@ class LevelOne extends Phaser.Scene
     }
     create()
     {
+        game.sound.stopAll();
         this.globals = this.scene.get("Globals");
         console.log(this.globals.score)
         //this.map = this.add.tilemap("rough-draft", 16,16,159,39);

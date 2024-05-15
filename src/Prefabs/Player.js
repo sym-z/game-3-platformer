@@ -9,6 +9,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
         // 1 for +x -1 for -x
         this.facing = 1;
         this.isMoving = false;
+        this.alive = true;
     }
     update()
     {
