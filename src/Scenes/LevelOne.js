@@ -170,6 +170,7 @@ class LevelOne extends Phaser.Scene
         this.globals.score += 1;
         this.sound.play("coin");
         console.log("coin pickup, score is: ", this.globals.score);
+        this.coin_sparkle(tile);
 
     }
     key_pickup(tile)
@@ -188,5 +189,26 @@ class LevelOne extends Phaser.Scene
         this.globals.score = 0;
         this.sound.play("death");
         this.scene.start("GameOver")
+    }
+    // Plays the particle system for the coin at the player's location
+    coin_sparkle(tile)
+    {
+        console.log(tile.pixelX)
+        console.log(tile.pixelY)
+        console.log(this.player.x)
+        console.log(this.player.y)
+        let coinLoc = this.map.tileToWorldXY(tile.x,tile.y)
+        let xLoc = coinLoc.x + 16;
+        let yLoc = coinLoc.y + 16;
+        this.coinSystem = this.add.particles(0, 0, 'coinSys', {
+            //frame: 'coinSys',
+            scale: { start: 0.1, end: 0 },
+            x: {min: xLoc - 5, max: xLoc + 5}  ,
+            y:  {min: yLoc -5 , max: yLoc + 5},
+            lifespan: 200,
+            duration: 500
+        });
+        this.coinSystem.start();
+
     }
 }

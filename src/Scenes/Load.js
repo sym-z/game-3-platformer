@@ -28,6 +28,9 @@ class Load extends Phaser.Scene {
         this.load.audio("footfall", "audio/footfall.mp3")
         this.load.audio("coin", "audio/jump.mp3")
         this.load.audio("key", "audio/key.mp3")
+
+        // Load frames to be used by the particle systems
+        this.load.image("coinSys", "particles/coin_pickup.png");
     }
     create()
     {
