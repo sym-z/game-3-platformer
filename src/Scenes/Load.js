@@ -10,6 +10,9 @@ class Load extends Phaser.Scene {
         this.load.image("tilemap_tiles", "kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_packed.png");                         // Packed tilemap
         this.load.tilemapTiledJSON("rough-draft", "rough-draft.tmj");   // Tilemap in JSON
 
+        // Load in font
+        this.load.bitmapFont('pi', 'fonts/pi_0.png', 'fonts/pi.fnt');
+
         //Load in animation frames
         this.load.image("death", "player-anims/death.png");                         
         this.load.image("idle1", "player-anims/idle1.png");                         
@@ -53,6 +56,6 @@ class Load extends Phaser.Scene {
                 frameRate: 10,
                 repeat: -1
             });
-        this.scene.start("LevelOne")
+        this.scene.start("Start")
     }
 }

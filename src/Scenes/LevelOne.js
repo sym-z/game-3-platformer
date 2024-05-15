@@ -178,6 +178,7 @@ class LevelOne extends Phaser.Scene
         tile.setVisible(false)
         this.sound.play("key");
         console.log("key pickup")
+        this.scene.start("Win")
     }
     // Instantly restarts level, I want to do a death anim but idk how yet.
     hurt()
@@ -186,6 +187,6 @@ class LevelOne extends Phaser.Scene
         //var timer = this.time.delayedCall(50000000000000, this.scene.start("LevelOne"),null, this);  // delay in ms
         this.globals.score = 0;
         this.sound.play("death");
-        this.scene.start("LevelOne")
+        this.scene.start("GameOver")
     }
 }
