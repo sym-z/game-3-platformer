@@ -34,6 +34,12 @@ class LevelOne extends Phaser.Scene
                 collides: true
             }
         );
+
+        this.ground.setCollisionByProperty(
+            {
+                platform: true
+            }
+        );
         this.background.setCollisionByProperty(
             {
                 hurts: true
@@ -44,6 +50,13 @@ class LevelOne extends Phaser.Scene
                 pickup: true
             }
         );
+
+        this.ground.forEachTile((tile) => 
+        {
+            if (tile.properties.platform) {
+                tile.setCollision(false, false, true, false);
+            }
+        });
 
         // Pickup Coin and Key callbacks
         this.items.forEachTile((tile) => {
