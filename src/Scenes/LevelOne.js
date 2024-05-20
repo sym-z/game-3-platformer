@@ -11,19 +11,38 @@ class LevelOne extends Phaser.Scene
         this.DRAG = 3000;
         this.JUMP_VELOCITY = -700;
         this.physics.world.gravity.y = 2000;
+        this.TOTAL_COINS = 25;
+    }
+    preload()
+    {
+        this.load.scenePlugin('AnimatedTiles', './lib/AnimatedTiles.js', 'animatedTiles', 'animatedTiles');
+
     }
     create()
     {
+        this.cameras.main.setBounds(0,0,5120,1280);
+        this.cameras.main.useBounds = true;
+        this.cameras.main.setDeadzone(50, 50);
         this.physics.world.TILE_BIAS = 36;
         game.sound.stopAll();
         this.globals = this.scene.get("Globals");
         this.map = this.make.tilemap({ key: 'rough-draft' });
         this.tileset = this.map.addTilesetImage("1bit-tileset", "tilemap_tiles")
+        
         this.background = this.map.createLayer("Background", this.tileset, 0, 0);
+        this.hidden = this.map.createLayer("Hidden Room", this.tileset, 0, 0);
         this.ground = this.map.createLayer("Ground", this.tileset, 0, 0);
         this.items = this.map.createLayer("Items", this.tileset, 0, 0);
-
+        
+        
+        this.background.depth = 0;
+        this.ground.depth = 1;
+        this.hidden.depth = 2;
+        this.items.depth = 3;
+        
+        this.animatedTiles.init(this.map);
         this.background.setScale(2.0);
+        this.hidden.setScale(2.0);
         this.ground.setScale(2.0);
         this.items.setScale(2.0);
 
@@ -32,6 +51,12 @@ class LevelOne extends Phaser.Scene
                 collides: true
             }
         );
+        this.hidden.setCollisionByProperty(
+            {
+                collides: true
+            }
+        );
+
 
         this.ground.setCollisionByProperty(
             {
@@ -95,6 +120,8 @@ class LevelOne extends Phaser.Scene
         this.physics.add.collider(this.player, this.ground);
         this.physics.add.collider(this.player, this.items);
         this.physics.add.collider(this.player, this.background);
+        this.physics.add.collider(this.player, this.hidden);
+
 
         this.player.anims.play('idle');
         
@@ -107,6 +134,7 @@ class LevelOne extends Phaser.Scene
         this.walkingSystem = this.add.particles(0,0, 'runSys', 
             {
                 scale: {start: 0.1, end: 0},
+                rotate: {start: 0, end: 360},
                 lifespan: 350,
                 duration: 200
             }
@@ -115,9 +143,13 @@ class LevelOne extends Phaser.Scene
     }
     update()
     {
+        if(this.globals.score == this.TOTAL_COINS)
+            {
+                this.unveil();
+            }
         this.player.isMoving = false;
         // Lookahead Camera, with lerping.
-        this.cameras.main.scrollY = this.player.y - 400;
+        this.cameras.main.scrollY = this.player.y - 350;
         this.target = this.player.x - 400 + this.player.facing * 100;
         this.dx = this.target - this.cameras.main.scrollX;
         this.cameras.main.scrollX += this.dx * 0.065;
@@ -244,10 +276,18 @@ class LevelOne extends Phaser.Scene
             {
                 scale: {start: 0.15, end: 0},
                 lifespan: 200,
+                rotate: {start: 0, end: 360},
                 duration: 300
             }
         );
         this.jumpSystem.startFollow(this.player, this.player.displayWidth/2 - 15, this.player.displayHeight/2-5, false);
         this.jumpSystem.start();
+    }
+    unveil()
+    {
+        console.log('player touch')
+        this.hidden.setVisible(false)
+       this.hidden.y = -1000 
+       // this.hidden.active= false
     }
 }
