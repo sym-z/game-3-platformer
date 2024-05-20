@@ -11,10 +11,10 @@ class Start extends Phaser.Scene
     create() 
     {
         game.sound.stopAll();
-        /*
-        this.globals = this.scene.get("Global");
-        this.score = this.globals.score;
-        */
+        
+        this.globals = this.scene.get("Globals");
+        this.globals.score = 0;
+        
         this.title = this.add.bitmapText(400,275,'pi','Press [Z] for Credits!', 64).setOrigin(0.5);
         this.title = this.add.bitmapText(400,350,'pi','Press [X] for Controls!', 64).setOrigin(0.5);
         
