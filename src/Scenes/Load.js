@@ -31,6 +31,8 @@ class Load extends Phaser.Scene {
 
         // Load frames to be used by the particle systems
         this.load.image("coinSys", "particles/coin_pickup.png");
+        this.load.image("jumpSys", "particles/jump_spark.png");
+        this.load.image("runSys", "particles/run_smoke.png");
     }
     create()
     {

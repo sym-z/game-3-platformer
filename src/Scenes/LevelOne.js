@@ -14,11 +14,9 @@ class LevelOne extends Phaser.Scene
     }
     create()
     {
+        this.physics.world.TILE_BIAS = 36;
         game.sound.stopAll();
         this.globals = this.scene.get("Globals");
-        console.log(this.globals.score)
-        //this.map = this.add.tilemap("rough-draft", 16,16,159,39);
-        //this.physics.world.setBounds(0,0,2560,640,true,true,true,true);
         this.map = this.make.tilemap({ key: 'rough-draft' });
         this.tileset = this.map.addTilesetImage("1bit-tileset", "tilemap_tiles")
         this.background = this.map.createLayer("Background", this.tileset, 0, 0);
@@ -105,6 +103,15 @@ class LevelOne extends Phaser.Scene
         this.cameras.main.scrollX = this.player.x - 400;
 
         this.step = this.sound.add('footfall');
+
+        this.walkingSystem = this.add.particles(0,0, 'runSys', 
+            {
+                scale: {start: 0.1, end: 0},
+                lifespan: 350,
+                duration: 200
+            }
+        );
+        this.walkingSystem.stop();
     }
     update()
     {
@@ -130,6 +137,11 @@ class LevelOne extends Phaser.Scene
         // Move the player.
         if (cursors.left.isDown)
         {
+            this.walkingSystem.startFollow(this.player, this.player.displayWidth/2,this.player.displayHeight/2-10,false);
+            if(this.player.body.blocked.down)
+                {
+                    this.walkingSystem.start();
+                }
             this.player.body.setAccelerationX(-this.ACCELERATION); 
             this.player.setFlip(true, false);
             this.player.anims.play('walk', true);
@@ -139,6 +151,11 @@ class LevelOne extends Phaser.Scene
         } else if(cursors.right.isDown) {
             // TODO: have the player accelerate to the right
 
+            this.walkingSystem.startFollow(this.player, this.player.displayWidth/2-32,this.player.displayHeight/2-10,false);
+            if(this.player.body.blocked.down)
+                {
+                    this.walkingSystem.start();
+                }
             this.player.body.setAccelerationX(this.ACCELERATION); 
             this.player.resetFlip();
             this.player.anims.play('walk', true);
@@ -146,6 +163,7 @@ class LevelOne extends Phaser.Scene
             this.player.facing = 1;
 
         } else {
+            this.walkingSystem.stop();
             // TODO: set acceleration to 0 and have DRAG take over
             this.player.body.setAccelerationX(0); 
             this.player.body.setDragX(this.DRAG); 
@@ -170,7 +188,7 @@ class LevelOne extends Phaser.Scene
         if(this.player.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             this.player.body.setVelocityY(this.JUMP_VELOCITY);
             this.sound.play("jump");
-            // TODO: set a Y velocity to have the player "jump" upwards (negative Y direction)
+            this.jump_spark();
 
         }
 
@@ -206,10 +224,6 @@ class LevelOne extends Phaser.Scene
     // Plays the particle system for the coin at the player's location
     coin_sparkle(tile)
     {
-        console.log(tile.pixelX)
-        console.log(tile.pixelY)
-        console.log(this.player.x)
-        console.log(this.player.y)
         let coinLoc = this.map.tileToWorldXY(tile.x,tile.y)
         let xLoc = coinLoc.x + 16;
         let yLoc = coinLoc.y + 16;
@@ -223,5 +237,17 @@ class LevelOne extends Phaser.Scene
         });
         this.coinSystem.start();
 
+    }
+    jump_spark()
+    {
+        this.jumpSystem = this.add.particles(0,0, 'jumpSys', 
+            {
+                scale: {start: 0.15, end: 0},
+                lifespan: 200,
+                duration: 300
+            }
+        );
+        this.jumpSystem.startFollow(this.player, this.player.displayWidth/2 - 15, this.player.displayHeight/2-5, false);
+        this.jumpSystem.start();
     }
 }
