@@ -929,6 +929,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"updown",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -938,6 +943,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"updown",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -945,6 +955,11 @@
                  "properties":[
                         {
                          "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"updown",
                          "type":"bool",
                          "value":true
                         }]
