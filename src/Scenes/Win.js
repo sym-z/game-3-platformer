@@ -14,6 +14,8 @@ class Win extends Phaser.Scene {
         this.sound.play("key");
         // this.title = this.add.bitmapText(400,300,'pi','You finished with a score of ' + this.globals.score + "!", 48).setOrigin(0.5);
         //this.title = this.add.bitmapText(400,400,'pi','Your high score is: ' + this.globals.high_score + "!", 48).setOrigin(0.5);
+        this.icon = this.add.sprite(400, 300, 'hop')      //this.title = this.add.bitmapText(400,300,'pi','You finished with a score of ' + this.globals.score + "!", 48).setOrigin(0.5);
+        this.icon.setScale(15.0).setOrigin(0.5)
         this.title = this.add.bitmapText(400, 550, 'pi', 'Press [Enter] to replay!', 48).setOrigin(0.5);
         this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     }

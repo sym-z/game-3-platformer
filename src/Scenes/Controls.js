@@ -13,7 +13,8 @@ class Controls extends Phaser.Scene {
         this.title = this.add.bitmapText(400, 300, 'pi', 'Collect the key at', 48).setOrigin(0.5);
         this.title = this.add.bitmapText(400, 350, 'pi', 'the end of the level', 48).setOrigin(0.5);
         this.title = this.add.bitmapText(400, 400, 'pi', 'to win!', 48).setOrigin(0.5);
-        this.title = this.add.bitmapText(400, 500, 'pi', 'Press ENTER to return to start screen!', 48).setOrigin(0.5);
+        this.title = this.add.bitmapText(400, 500, 'pi', 'Collect all coins for a hidden surprise!', 48).setOrigin(0.5);
+        this.title = this.add.bitmapText(400, 600, 'pi', 'Press ENTER to return to start screen!', 48).setOrigin(0.5);
         this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     }
     update(delta) {

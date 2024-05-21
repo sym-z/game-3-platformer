@@ -17,6 +17,9 @@ class Start extends Phaser.Scene {
 
         //this.title = this.add.bitmapText(400,550,'pi','Your High Score is: ' + this.globals.high_score, 48).setOrigin(0.5);
 
+        this.icon = this.add.sprite(400, 500, 'step')
+        this.icon.setScale(15.0).setOrigin(0.5)
+
         this.title = this.add.bitmapText(400, 50, 'pi', 'Bitty!', 64).setOrigin(0.5);
         this.title = this.add.bitmapText(400, 125, 'pi', 'Press [Enter] to Play!', 64).setOrigin(0.5);
         this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);

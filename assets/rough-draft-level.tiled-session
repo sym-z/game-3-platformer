@@ -13,15 +13,15 @@
             "scaleInEditor": 4
         },
         "rough-draft.tmx": {
-            "scale": 2,
-            "selectedLayer": 2,
+            "scale": 1.5,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 579.25,
-                "y": 416.5
+                "x": 611,
+                "y": 374.66666666666663
             }
         },
         "rough-draft.tmx#1bit-tileset": {
-            "scaleInDock": 2
+            "scaleInDock": 3
         }
     },
     "last.exportedFilePath": "D:/Github Repos/game-3-platformer/assets",

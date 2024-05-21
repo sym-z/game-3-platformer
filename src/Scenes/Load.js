@@ -21,6 +21,8 @@ class Load extends Phaser.Scene {
         this.load.image("jump2", "player-anims/jump2.png");
         this.load.image("walk1", "player-anims/walk1.png");
         this.load.image("walk2", "player-anims/walk2.png");
+        this.load.image("step", "player-anims/step.png");
+        this.load.image("hop", "player-anims/hop.png");
 
         this.load.audio("jump", "audio/pop.mp3")
         this.load.audio("ui", "audio/choice.mp3")
