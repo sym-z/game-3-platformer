@@ -1,11 +1,8 @@
-class Globals extends Phaser.Scene
-{
-    constructor()
-    {
+class Globals extends Phaser.Scene {
+    constructor() {
         super("Globals");
     }
-    create()
-    {
+    create() {
         this.score = 0;
         this.scene.start("Load")
     }

@@ -1,16 +1,13 @@
-class GameOver extends Phaser.Scene
-{
+class GameOver extends Phaser.Scene {
     constructor() {
         super("GameOver");
     }
-    preload()
-    {
+    preload() {
         this.load.setPath("./assets/");
         this.load.bitmapFont('pi', 'fonts/pi_0.png', 'fonts/pi.fnt');
-        this.load.image('death','player-anims/death.png');
+        this.load.image('death', 'player-anims/death.png');
     }
-    create() 
-    {
+    create() {
         game.sound.stopAll();
         this.sound.play("death");
         /*
@@ -22,11 +19,11 @@ class GameOver extends Phaser.Scene
                 this.globals.high_score = this.globals.score
             }
         */
-        this.title = this.add.bitmapText(400,150,'pi','Game Over!', 64).setOrigin(0.5);
+        this.title = this.add.bitmapText(400, 150, 'pi', 'Game Over!', 64).setOrigin(0.5);
         this.icon = this.add.sprite(400, 300, 'death')      //this.title = this.add.bitmapText(400,300,'pi','You finished with a score of ' + this.globals.score + "!", 48).setOrigin(0.5);
         this.icon.setScale(15.0).setOrigin(0.5)
         //this.title = this.add.bitmapText(400,400,'pi','Your high score is:  ' + this.globals.high_score + "!", 48).setOrigin(0.5);
-        this.title = this.add.bitmapText(400,550,'pi','Press [Enter] to replay!', 48).setOrigin(0.5);
+        this.title = this.add.bitmapText(400, 550, 'pi', 'Press [Enter] to replay!', 48).setOrigin(0.5);
         this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     }
     update(delta) {

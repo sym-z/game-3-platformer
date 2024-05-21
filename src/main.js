@@ -20,11 +20,11 @@ let config = {
     },
     width: 800,
     height: 640,
-    scene: [Globals, Load,Start,Controls,Credits,LevelOne,GameOver,Win]
+    scene: [Globals, Load, Start, Controls, Credits, LevelOne, GameOver, Win]
 }
 
 var cursors;
 const SCALE = 2.0;
-var my = {sprite: {}, text: {}};
+var my = { sprite: {}, text: {} };
 
 const game = new Phaser.Game(config);
