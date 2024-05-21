@@ -13,11 +13,11 @@
             "scaleInEditor": 4
         },
         "rough-draft.tmx": {
-            "scale": 4,
-            "selectedLayer": 0,
+            "scale": 2,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 2243.125,
-                "y": 504.75
+                "x": 579.25,
+                "y": 416.5
             }
         },
         "rough-draft.tmx#1bit-tileset": {
@@ -26,6 +26,7 @@
     },
     "last.exportedFilePath": "D:/Github Repos/game-3-platformer/assets",
     "last.imagePath": "/home/sym-z/code/UCSC/spring24/cmpm120/game-3-platformer/assets/kenney_1-bit-platformer-pack/Tilemap",
+    "lastUsedTilesetExportFilter": "All Files (*)",
     "map.height": 40,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",

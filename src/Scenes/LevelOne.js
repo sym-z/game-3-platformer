@@ -11,7 +11,9 @@ class LevelOne extends Phaser.Scene
         this.DRAG = 3000;
         this.JUMP_VELOCITY = -700;
         this.physics.world.gravity.y = 2000;
-        this.TOTAL_COINS = 25;
+        this.HIDDEN_AREA_UNLOCK = 25;
+        this.HIDDEN_AREA_X = 4512;
+        this.HIDDEN_AREA_Y= 64;
     }
     preload()
     {
@@ -73,14 +75,23 @@ class LevelOne extends Phaser.Scene
                 pickup: true
             }
         );
-
+        this.player = new Player(this, 120,850,'idle1'); 
+        this.player.setScale(2.0);
         this.ground.forEachTile((tile) => 
         {
             if (tile.properties.platform) {
                 tile.setCollision(false, false, true, false);
             }
         });
-
+        this.ground.forEachTile((tile) => {
+            if (tile.properties.teleportA) {
+                tile.collisionCallback = () => {
+                    console.log(this.bLocX, this.bLocY)
+                    this.player.x = this.HIDDEN_AREA_X;
+                    this.player.y = this.HIDDEN_AREA_Y;
+                }
+            }
+        });
         // Pickup Coin and Key callbacks
         this.items.forEachTile((tile) => {
             tile.collisionCallback = ()=>{
@@ -102,15 +113,9 @@ class LevelOne extends Phaser.Scene
                     {
                         this.hurt();
                     }
-                else
-                {
-
-                }
             }
         })
 
-        this.player = new Player(this, 120,850,'idle1'); 
-        this.player.setScale(2.0);
 
         // Can't do this bc scaling, unless a TA can help out.
         //this.player.setCollideWorldBounds(true);
@@ -143,9 +148,10 @@ class LevelOne extends Phaser.Scene
     }
     update()
     {
-        if(this.globals.score == this.TOTAL_COINS)
+        if(this.globals.score == this.HIDDEN_AREA_UNLOCK)
             {
                 this.unveil();
+                //TODO: Play Sound
             }
         this.player.isMoving = false;
         // Lookahead Camera, with lerping.
@@ -247,8 +253,6 @@ class LevelOne extends Phaser.Scene
     // Instantly restarts level, I want to do a death anim but idk how yet.
     hurt()
     {
-        //game.time.events.add(Phaser.Timer.SECOND*5,this.scene.start("LevelOne") , this);
-        //var timer = this.time.delayedCall(50000000000000, this.scene.start("LevelOne"),null, this);  // delay in ms
         this.globals.score = 0;
         this.sound.play("death");
         this.scene.start("GameOver")
@@ -260,7 +264,6 @@ class LevelOne extends Phaser.Scene
         let xLoc = coinLoc.x + 16;
         let yLoc = coinLoc.y + 16;
         this.coinSystem = this.add.particles(0, 0, 'coinSys', {
-            //frame: 'coinSys',
             scale: { start: 0.1, end: 0 },
             x: {min: xLoc - 5, max: xLoc + 5}  ,
             y:  {min: yLoc -5 , max: yLoc + 5},
